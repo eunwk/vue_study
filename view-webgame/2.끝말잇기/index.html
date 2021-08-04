@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>끝말잇기</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <word-relay start-word="제로초"></word-relay>
+        <word-relay start-word="초밥"></word-relay>
+        <word-relay start-word="고구마"></word-relay>
+    </div>
+
+    <script>
+        // 전역 컴포넌트
+        Vue.component('wordRelay', {
+            template: `
+                <div>
+                    <div>{{word}}</div>
+                    <form v-on:submit="onSubmitForm">
+                        <input v-model="value" ref="answer" />
+                        <button type="submit">입력</button>
+                    </form>
+                    <div id="result">{{result}}</div>
+                </div>
+            `,
+            props: ['startWord'],
+            // data: {
+            //     word: '김밥',
+            //     result:'',
+            //     value:'',
+            // },
+            // 컴포넌트에서는 data가 객체를 리턴하는 함수로 만들어져야 한다.
+            data() {
+                console.log(this);
+                return {
+                    word: this.startWord,
+                    result:'',
+                    value:'',
+                }    
+            },
+            methods: {
+                onSubmitForm(e) {
+                    e.preventDefault();
+                    if(this.word[this.word.length -1] === this.value[0]) {
+                        this.result = "정답";
+                        this.word = this.value;
+                        this.value = '';      
+                    } else {
+                        this.result = "땡";
+                        this.value = '';     
+                    }
+                    this.$refs.answer.focus();
+                }   
+            }
+        })
+    </script>
+    <script>
+        // 뷰 인스턴스
+        const app = new Vue({
+            el: '#root',      
+        });
+    </script>
+</body>
+</html>
+
+
+<!--  정리할 것
+
+1. string의 마지막 글자 값 가져오기 
+   this.word[this.word.length
+
+2. 네이밍
+파스칼 케이스(Pascal case) WrodRelay : 첫째 글자 대문자, 다른단어 대문자
+카멜케이스 wordRelay :  첫째 글자 소문자, 다른단어 대문자.
+케밥케이스(Kebab case) word-relay : 단어를 하이픈으로 구분 
+스네이크케이스(snake case) word_relay: 소문자를 언더바 구분
+
+뷰에서는 파일단위 컴포넌트는 파스칼 케이스 또는 케밥케이스 권장된다.
+
+html 단에서 속성은 케밥케이스로. 스크립트에서는 카멜케이스로 받는다.
+<word-relay start-word="제로초"></word-relay>
+
+3. 컴포넌트 분리
+4. props
+-->

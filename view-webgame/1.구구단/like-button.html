@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>좋아요</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <div v-if="liked">좋아요 눌렀음</div>
+        <button v-else v-on:click="onClickButton">Like</button>
+    </div>
+    <script>
+        const app = new Vue({
+            el: '#root',
+            data: {
+                liked: false,
+            },
+            methods: {
+                onClickButton() {
+                    this.liked = true; // this는 data, 즉 this.liked는 data.liked를 가리킴
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+<!--  정리할 것
+
+1. CDN
+2. data, methods 기본형태. const app = new Vue({}) 뷰 인스턴스
+3. methods에서의 this
+4. v-if, v-else-if, v-else
+   내부에 자바스크립트 사용 가능
+   v-if, v-else-if, v-else를 사용한 show/hide 처리 
+   <div v-if="route === 'main'">메인화면</div>
+   <div v-else-if="route === 'sub'">서브화면</div>
+   <div v-else>기타화면</div>
+5. 이벤트 v-on:click
+
+-->
