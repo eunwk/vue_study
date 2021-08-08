@@ -1,6 +1,6 @@
 <template>
   <tr>
-    <td-component v-for="(cellData, index) in rowData" :row-index="rowIndex" :cell-data="cellData" :cell-index="index" ></td-component>
+    <td-component v-for="(cellData, index) in rowData" :key="index" :row-index="rowIndex" :cell-data="cellData" :cell-index="index" ></td-component>
   </tr>
 </template>
 <script>
@@ -12,6 +12,11 @@ export default {
    props: {
     rowData: Array,
     rowIndex: Number,
+  },
+  data() {
+    return {
+      who: '내가 아빠야',
+    }
   },
 
   methods: {},
